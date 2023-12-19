@@ -6,6 +6,7 @@ function Home() {
   return (
     <div>
       <Row gutter={16}>
+<<<<<<< HEAD
         <Col span={8}>
           <Card title="Projeler" bordered={false}>
             <Link to="/projects">
@@ -28,6 +29,24 @@ function Home() {
           </Card>
         </Col>
       </Row>
+=======
+    <Col span={8}>
+      <Card title="Admin Panel" bordered={false}>
+        Card content
+      </Card>
+    </Col>
+    <Col span={8}>
+      <Card title="Projeler" bordered={false}>
+        Card content
+      </Card>
+    </Col>
+    <Col span={8}>
+      <Card title="Ajanda" bordered={false}>
+        Card content
+      </Card>
+    </Col>
+  </Row>
+>>>>>>> f8f38b752027d0429f994b4a12e2da0d65c09cd2
     </div>
   )
 }

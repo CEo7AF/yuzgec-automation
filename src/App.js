@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -26,6 +27,19 @@ function App() {
         </Routes>
       </div>
     </Router>
+=======
+import Home from './Pages/Home'
+import Calender from './Pages/Calender'
+import AdminPanel from './Pages/AdminPanel'
+
+function App() {
+  return (
+    <div className="App">
+      <Home/>
+      <Calender />
+      <AdminPanel />
+    </div>
+>>>>>>> f8f38b752027d0429f994b4a12e2da0d65c09cd2
   );
 }
 export default App;
