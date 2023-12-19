@@ -38,7 +38,7 @@ const getMonthData = (value) => {
   }
 };
 
-const App = () => {
+const Date = () => {
   const monthCellRender = (value) => {
     const num = getMonthData(value);
     return num ? (
@@ -71,4 +71,4 @@ const App = () => {
   return <Calendar cellRender={cellRender} />;
 };
 
-export default App;
+export default Date;
