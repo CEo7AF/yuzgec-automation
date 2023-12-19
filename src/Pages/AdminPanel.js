@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-
-const AdminPanel = () => {
-  return (
-    <div>
-      <h1>ADMİN PANEL</h1>
-     
-    </div>
-  );
-}
-
-export default AdminPanel;
-=======
 import React, { useState } from "react";
 import { Button, Modal, Input, Form, Select } from "antd";
 
@@ -63,4 +49,3 @@ function AdminPanel() {
 }
 
 export default AdminPanel;
->>>>>>> f8f38b752027d0429f994b4a12e2da0d65c09cd2
