@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Col, Row, Button } from 'antd';
 import { Link } from 'react-router-dom';
-
 function Home() {
   return (
     <div>

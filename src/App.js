@@ -1,5 +1,6 @@
 // src/App.js
 import React from 'react';
+import Bar from './components/Bar'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import AdminPanel from './Pages/AdminPanel.js';
@@ -22,8 +23,8 @@ function App() {
           <Route path="/complated-projects" element={<ComplatedProjects />} />
           <Route path="/continued-projects" element={<ContinuedProjects />} />
           <Route path="/projects" element={<Projects />} />
-
         </Routes>
+        <Bar/>
       </div>
     </Router>
   );
