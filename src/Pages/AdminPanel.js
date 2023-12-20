@@ -71,7 +71,7 @@ function AdminPanel() {
       </Modal>
       <div>
         {users.map((user, index) => (
-          <Card key={index} title={user.name + ' ' + user.surname}>
+          <Card  key={index} title={user.name + ' ' + user.surname} >
             <p>Görevi: {user.role}</p>
             <Button type="primary" danger onClick={() => handleDelete(index)}>
               Sil
