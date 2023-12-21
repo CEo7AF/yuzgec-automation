@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Layout, Avatar, Menu, Dropdown } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
 
 const App = () => {
   const [userName] = useState('Admin'); // Default olarak "Admin" kullanıcısını gösteriyoruz
-
-  
 
   // Avatar menü içeriği
   const menu = (
@@ -29,7 +28,9 @@ const App = () => {
           alignItems: 'center',
         }}
       >
-        <div style={{ fontSize: '22px', fontWeight: 'bold', marginTop: '-5px' }}>YUZGEC</div>
+        <Link to="/home" style={{ color: 'white', textDecoration: 'none' }}>
+          <div style={{ fontSize: '22px', fontWeight: 'bold', marginTop: '-5px' }}>YUZGEC</div>
+        </Link>
 
         {/* Kullanıcı adını ve avatar'ı gösteren Dropdown */}
         <Dropdown overlay={menu} placement="bottomRight">
