@@ -1,48 +1,48 @@
 import React, { useState } from 'react';
-import { Calendar, Modal, Input, Button } from 'antd';
+import { Calendar, Alert, Modal, Input } from 'antd';
 
 const App = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [inputValue, setInputValue] = useState('');
-  const [note, setNote] = useState('');
+  const [notes, setNotes] = useState({});
 
   const onPanelChange = (value, mode) => {
     console.log(value.format('YYYY-MM-DD'), mode);
   };
 
-  const onDateSelect = (value) => {
-    setSelectedDate(value);
-    Modal.info({
-      title: 'Seçilen Tarih',
+  const onSelect = (value) => {
+    const selectedDate = value.format('YYYY-MM-DD');
+    const existingNote = notes[selectedDate];
+
+    Modal.confirm({
+      title: 'Not Ekle',
       content: (
-        <div>
-          <p>{value.format('YYYY-MM-DD')}</p>
-          <Input
-            placeholder="Bir şeyler yazın"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-        </div>
+        <Input.TextArea
+          placeholder="Notunuzu buraya ekleyin"
+          rows={4}
+          defaultValue={existingNote}
+        />
       ),
-      onOk() {
-        setNote(inputValue);
-        setInputValue('');
-        setSelectedDate(null);
+      onOk: async () => {
+        const newNote = document.querySelector('.ant-modal-root .ant-input').value;
+        setNotes((prevNotes) => ({ ...prevNotes, [selectedDate]: newNote }));
       },
     });
   };
 
+  const dateCellRender = (value) => {
+    const dateString = value.format('YYYY-MM-DD');
+    const note = notes[dateString];
+
+    return (
+      <div>
+        <span>{value.date()}</span>
+        {note && <Alert message={note} type="info" showIcon />}
+      </div>
+    );
+  };
+
   return (
     <div>
-      <Calendar onPanelChange={onPanelChange} onSelect={onDateSelect} />
-      <div style={{ marginTop: '20px' }}>
-        {note && (
-          <div>
-            <h2>Not:</h2>
-            <p>{note}</p>
-          </div>
-        )}
-      </div>
+      <Calendar onPanelChange={onPanelChange} onSelect={onSelect} dateCellRender={dateCellRender} />
     </div>
   );
 };
