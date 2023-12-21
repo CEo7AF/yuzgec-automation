@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 const endpoints = [
   { title: 'Dashboard', path: '/dashboard' },
-  { title: 'Dosyalar', path: '/files' },
-  { title: 'Makine Park', path: '/machinery-park' },
-  { title: 'Makine Puantaj', path: '/machinery-attendance' },
-  { title: 'Muhasebe', path: '/accounting' },
-  { title: 'Personel', path: '/personnel' },
-  { title: 'Personel Puantaj', path: '/personnel-attendance' },
-  { title: 'Resimler', path: '/images' },
-  { title: 'Yakıt Durumu', path: '/fuel-status' },
+  { title: 'Dosyalar', path: '/dosyalar' },
+  { title: 'Makine Park', path: '/makine-parki' },
+  { title: 'Makine Puantaj', path: '/makine-puantaj' },
+  { title: 'Muhasebe', path: '/muhasebe' },
+  { title: 'Personel', path: '/personel' },
+  { title: 'Personel Puantaj', path: '/personel-puantaj' },
+  { title: 'Resimler', path: '/resimler' },
+  { title: 'Yakıt Durumu', path: '/yakit-durum' },
 ];
 
 const EndpointPage = () => {
