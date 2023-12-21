@@ -21,6 +21,15 @@ const Home = () => {
           </Card>
         </Col>
       </Row>
+
+      {/* Geri Dön Butonu */}
+      <div style={{ position: 'fixed', bottom: '70px', left: '16px', zIndex: '1000' }}>
+        <Link to="/">
+          <Button type="default" style={{ backgroundColor: '#ccc' }}>
+            Geri Dön
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }

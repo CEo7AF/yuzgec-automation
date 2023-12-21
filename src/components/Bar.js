@@ -29,7 +29,7 @@ const App = () => {
           alignItems: 'center',
         }}
       >
-        <div style={{ fontSize: '22px', fontWeight: 'bold', marginTop: '-5px' }}>YUZGEC AUTOMATION</div>
+        <div style={{ fontSize: '22px', fontWeight: 'bold', marginTop: '-5px' }}>YUZGEC</div>
 
         {/* Kullanıcı adını ve avatar'ı gösteren Dropdown */}
         <Dropdown overlay={menu} placement="bottomRight">

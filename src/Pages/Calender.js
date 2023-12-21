@@ -68,7 +68,18 @@ const Date = () => {
     return info.originNode;
   };
 
-  return <Calendar cellRender={cellRender} />;
+  return (
+    <Calendar
+      style={{
+        width: '80%',
+        margin: 'auto',
+        border: '1px solid #d9d9d9',
+        borderRadius: '4px',
+        overflow: 'hidden',
+      }}
+      cellRender={cellRender}
+    />
+  );
 };
 
 export default Date;
