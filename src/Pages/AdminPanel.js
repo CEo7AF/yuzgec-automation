@@ -1,86 +1,99 @@
-import React, { useState, useEffect } from "react";
-import { Button, Modal, Input, Form, Select, Card } from "antd";
+import React, { useState, useEffect } from 'react';
+import { Button, Modal, Form, Input, Table, Space } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
-function AdminPanel() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const AdminPanel = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
   const [users, setUsers] = useState([]);
-  const [newUser, setNewUser] = useState({ name: '', surname: '', role: '' });
 
-  // Uygulama başladığında localStorage'dan kullanıcıları yükle
   useEffect(() => {
+    // Burada, sayfa yüklendiğinde localStorage'dan kullanıcıları yükleme işlemleri yapılabilir.
     const loadedUsers = JSON.parse(localStorage.getItem('users')) || [];
     setUsers(loadedUsers);
   }, []);
 
-  // Kullanıcılar değiştiğinde, localStorage'a kaydet
   useEffect(() => {
+    // Burada, kullanıcılar değiştiğinde localStorage'a kaydetme işlemleri yapılabilir.
     localStorage.setItem('users', JSON.stringify(users));
   }, [users]);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  const columns = [
+    {
+      title: 'İsim',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Soyisim',
+      dataIndex: 'surname',
+      key: 'surname',
+    },
+    {
+      title: 'Görevi',
+      dataIndex: 'role',
+      key: 'role',
+    },
+    {
+      title: 'İşlemler',
+      key: 'action',
+      render: (text, record) => (
+        <Space size="middle">
+          <Button type="danger" icon={<DeleteOutlined />} onClick={() => handleDelete(record.key)}>
+            Sil
+          </Button>
+        </Space>
+      ),
+    },
+  ];
 
-  const handleOk = () => {
-    const updatedUsers = [...users, newUser];
-    setUsers(updatedUsers);
-    setIsModalOpen(false);
-    setNewUser({ name: '', surname: '', role: '' });
+  const showModal = () => {
+    setIsModalVisible(true);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setIsModalVisible(false);
+    form.resetFields();
   };
 
-  const handleChange = (key, value) => {
-    setNewUser({ ...newUser, [key]: value });
+  const handleOk = () => {
+    form.validateFields()
+      .then(values => {
+        setUsers([...users, { key: users.length, ...values }]);
+        form.resetFields();
+        setIsModalVisible(false);
+      })
+      .catch(errorInfo => {
+        console.log('Validation Failed:', errorInfo);
+      });
   };
 
-  const handleDelete = (index) => {
-    const newUsers = users.filter((_, idx) => idx !== index);
-    setUsers(newUsers);
+  const handleDelete = key => {
+    const updatedUsers = users.filter(user => user.key !== key);
+    setUsers(updatedUsers);
   };
 
   return (
-    <>
+    <div>
       <Button type="primary" onClick={showModal}>
         Yeni Kullanıcı Ekle
       </Button>
-      <Modal
-        title="Yeni Kullanıcı Ekle"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        cancelText="Kapat"
-        okText="Kaydet"
-      >
-        <Form layout="vertical">
-          <Form.Item label="İsim">
-            <Input placeholder="İsim" onChange={(e) => handleChange('name', e.target.value)} />
+      <Modal title="Yeni Kullanıcı Ekle" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Form form={form} layout="vertical" name="userForm">
+          <Form.Item name="name" label="İsim" rules={[{ required: true, message: 'Lütfen ismi girin!' }]}>
+            <Input />
           </Form.Item>
-          <Form.Item label="Soyisim">
-            <Input placeholder="Soyisim" onChange={(e) => handleChange('surname', e.target.value)} />
+          <Form.Item name="surname" label="Soyisim" rules={[{ required: true, message: 'Lütfen soyismi girin!' }]}>
+            <Input />
           </Form.Item>
-          <Form.Item label="Görevi">
-            <Select placeholder="Görevi Seçiniz" onChange={(value) => handleChange('role', value)}>
-              <Select.Option value="yönetici">Yönetici</Select.Option>
-              <Select.Option value="muhasebe">Muhasebe</Select.Option>
-            </Select>
+          <Form.Item name="role" label="Görevi" rules={[{ required: true, message: 'Lütfen görevi girin!' }]}>
+            <Input />
           </Form.Item>
         </Form>
       </Modal>
-      <div>
-        {users.map((user, index) => (
-          <Card  key={index} title={user.name + ' ' + user.surname} >
-            <p>Görevi: {user.role}</p>
-            <Button type="primary" danger onClick={() => handleDelete(index)}>
-              Sil
-            </Button>
-          </Card>
-        ))}
-      </div>
-    </>
+      <Table columns={columns} dataSource={users} />
+    </div>
   );
-}
+};
 
 export default AdminPanel;
