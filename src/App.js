@@ -11,7 +11,7 @@ import ContinuedProjects from './Pages/ContinuedProjects.js';
 import Projects from './Pages/Projects.js';
 import Error from './Pages/Error.js';
 //endpoint routes
-import Endpoint from './Endpoint/index.js';
+import Endpoint from './Endpoint/Cards.js';
 import Dashboard from './Endpoint/Dashboard.js';
 import Dosyalar from './Endpoint/Dosyalar.js';
 import Makineparki from './Endpoint/Makineparki.js';
