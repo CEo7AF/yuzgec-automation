@@ -1,85 +1,50 @@
-import React from 'react';
-import { Badge, Calendar } from 'antd';
+import React, { useState } from 'react';
+import { Calendar, Modal, Input, Button } from 'antd';
 
-const getListData = (value) => {
-  let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        { type: 'warning', content: 'This is warning event.' },
-        { type: 'success', content: 'This is usual event.' },
-      ];
-      break;
-    case 10:
-      listData = [
-        { type: 'warning', content: 'This is warning event.' },
-        { type: 'success', content: 'This is usual event.' },
-        { type: 'error', content: 'This is error event.' },
-      ];
-      break;
-    case 15:
-      listData = [
-        { type: 'warning', content: 'This is warning event' },
-        { type: 'success', content: 'This is very long usual event......' },
-        { type: 'error', content: 'This is error event 1.' },
-        { type: 'error', content: 'This is error event 2.' },
-        { type: 'error', content: 'This is error event 3.' },
-        { type: 'error', content: 'This is error event 4.' },
-      ];
-      break;
-    default:
-  }
-  return listData || [];
-};
+const App = () => {
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [inputValue, setInputValue] = useState('');
+  const [note, setNote] = useState('');
 
-const getMonthData = (value) => {
-  if (value.month() === 8) {
-    return 1394;
-  }
-};
-
-const Date = () => {
-  const monthCellRender = (value) => {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
+  const onPanelChange = (value, mode) => {
+    console.log(value.format('YYYY-MM-DD'), mode);
   };
 
-  const dateCellRender = (value) => {
-    const listData = getListData(value);
-    return (
-      <ul className="events">
-        {listData.map((item) => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
-  const cellRender = (current, info) => {
-    if (info.type === 'date') return dateCellRender(current);
-    if (info.type === 'month') return monthCellRender(current);
-    return info.originNode;
+  const onDateSelect = (value) => {
+    setSelectedDate(value);
+    Modal.info({
+      title: 'Seçilen Tarih',
+      content: (
+        <div>
+          <p>{value.format('YYYY-MM-DD')}</p>
+          <Input
+            placeholder="Bir şeyler yazın"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+        </div>
+      ),
+      onOk() {
+        setNote(inputValue);
+        setInputValue('');
+        setSelectedDate(null);
+      },
+    });
   };
 
   return (
-    <Calendar
-      style={{
-        width: '80%',
-        margin: 'auto',
-        border: '1px solid #d9d9d9',
-        borderRadius: '4px',
-        overflow: 'hidden',
-      }}
-      cellRender={cellRender}
-    />
+    <div>
+      <Calendar onPanelChange={onPanelChange} onSelect={onDateSelect} />
+      <div style={{ marginTop: '20px' }}>
+        {note && (
+          <div>
+            <h2>Not:</h2>
+            <p>{note}</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
-export default Date;
+export default App;
