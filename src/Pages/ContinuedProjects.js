@@ -1,24 +1,28 @@
 import React, { useState } from "react";
-import { Button, Modal, Input, Form, Card } from "antd";
+import { Button, Modal, Input, Form, Card, Row, Col } from "antd";
 
-const ContuniedProjects = () => {
+const ContinuedProjects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projectData, setProjectData] = useState(null);
+  const [projects, setProjects] = useState([]); // Yeni bir state ekledik
+
+  const [form] = Form.useForm();
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
+    const newProject = form.getFieldsValue();
+    setProjects([...projects, newProject]); // Yeni projeyi ekleyerek projeleri güncelle
+    form.resetFields();
     setIsModalOpen(false);
-    setProjectData(form.getFieldsValue());
   };
 
   const handleCancel = () => {
+    form.resetFields();
     setIsModalOpen(false);
   };
-
-  const [form] = Form.useForm();
 
   return (
     <>
@@ -27,7 +31,7 @@ const ContuniedProjects = () => {
       </Button>
       <Modal
         title="Yeni Proje Ekle"
-        open={isModalOpen}
+        visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
         okText="Kaydet"
@@ -45,27 +49,32 @@ const ContuniedProjects = () => {
           </Form.Item>
         </Form>
       </Modal>
-      {projectData && (
-        <Card
-          title={projectData.projeIsmi}
-          style={{ 
-            marginTop: 16, 
-            backgroundColor: '#164e63', 
-            color: 'white',
-            width: 300, // Kartın genişliği
-            height: 300, // Kartın yüksekliği
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          <p>Personel Sayısı: {projectData.personelSayisi}</p>
-          <p>Makine Sayısı: {projectData.makineSayisi}</p>
-        </Card>
-      )}
+      <Row gutter={16}>
+        {/* Kartları yan yana sıralamak için Row ve Col kullanıldı */}
+        {projects.map((project, index) => (
+          <Col key={index} span={5}>
+            <Card
+              title={project.projeIsmi}
+              style={{ 
+                marginTop: 16, 
+                backgroundColor: '#164e63', 
+                color: 'white',
+                width: 300,
+                height: 300,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <p>Personel Sayısı: {project.personelSayisi}</p>
+              <p>Makine Sayısı: {project.makineSayisi}</p>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </>
   );
 };
 
-export default ContuniedProjects;
+export default ContinuedProjects;
