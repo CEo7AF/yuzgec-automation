@@ -86,6 +86,15 @@ import Projects from './Pages/Projects.js';
 import Login from './Pages/Login.js';
 import Error from './Pages/Error.js';
 import Endpoint from './Pages/Endpoint.js';
+import Dashboard from './Endpoint/Dashboard.js';
+import Dosyalar from './Endpoint/Dosyalar.js';
+import Makineparki from './Endpoint/Makineparki.js';
+import Makinepuantaj from './Endpoint/Makinepuantaj.js';
+import Muhasebe from './Endpoint/Muhasebe.js';
+import Personel from './Endpoint/Personel.js';
+import Personelpuantaj from './Endpoint/Personelpuantaj.js';
+import Resimler from './Endpoint/Resimler.js';
+import Yakitdurum from './Endpoint/Yakitdurum.js'
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -108,6 +117,15 @@ function App() {
               <Route path="/continued-projects" element={<ContinuedProjects />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/endpoint" element={<Endpoint />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dosyalar" element={<Dosyalar />} />
+              <Route path="/Makine-parki" element={<Makineparki />} />
+              <Route path="/makine-puantaj" element={<Makinepuantaj />} />
+              <Route path="/muhasebe" element={<Muhasebe />} />
+              <Route path="/personel" element={<Personel />} />
+              <Route path="/personel-puantaj" element={<Personelpuantaj />} />
+              <Route path="/resimler" element={<Resimler />} />
+              <Route path="/yakit-durum" element={<Yakitdurum />} />
             </>
           ) : (
             <Route path="*" element={<Navigate to="/error" />} />
