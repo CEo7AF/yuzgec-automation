@@ -3,7 +3,6 @@ import { Button, Modal, Input, Form, Card, Row, Col } from "antd";
 
 const ContinuedProjects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [projectData, setProjectData] = useState(null);
   const [projects, setProjects] = useState([]);
 
   const [form] = Form.useForm();
