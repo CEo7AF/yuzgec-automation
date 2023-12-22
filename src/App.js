@@ -1,4 +1,4 @@
-// src/App.js
+/*
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Bar from './components/Bar';
@@ -41,7 +41,7 @@ function App() {
           <Route path="/continued-projects" element={<ContinuedProjects />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/error" element={<Error />} />
-           {/* endpoint routes*/}
+          
           <Route path="/endpoint" element={<Endpoint />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dosyalar" element={<Dosyalar />} />
@@ -68,10 +68,10 @@ function App() {
 }
 
 export default App;
-
+*/
 //proje bittiğinde kullanılacak 
 
-/*
+
 // src/App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -85,7 +85,7 @@ import ContinuedProjects from './Pages/ContinuedProjects.js';
 import Projects from './Pages/Projects.js';
 import Login from './Pages/Login.js';
 import Error from './Pages/Error.js';
-import Endpoint from './Pages/Endpoint.js';
+import Endpoint from './Endpoint/Cards.js';
 import Dashboard from './Endpoint/Dashboard.js';
 import Dosyalar from './Endpoint/Dosyalar.js';
 import Makineparki from './Endpoint/Makineparki.js';
@@ -139,5 +139,3 @@ function App() {
 }
 
 export default App;
-
-*/
