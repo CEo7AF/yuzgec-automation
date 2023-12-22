@@ -60,7 +60,8 @@ const ContinuedProjects = () => {
 
   const handleView = (project) => {
     // Görüntüleme işlemi
-    // Buraya proje görüntülemeyle ilgili kodları ekleyebilirsiniz
+    console.log(`Proje görüntüleme: ${project.projeIsmi}`);
+    // Burada istediğiniz işlemleri gerçekleştirebilirsiniz.
   };
 
   return (
@@ -114,9 +115,9 @@ const ContinuedProjects = () => {
                 Güncelle
               </Button>
               <Link to="/endpoint" style={{ color: 'white', textDecoration: 'none' }}>
-              <Button type="primary" onClick={() => handleView(project)}>
-                Projeye git
-              </Button>
+                <Button type="primary" onClick={() => handleView(project)}>
+                  Projeye git
+                </Button>
               </Link>
             </Card>
           </Col>

@@ -1,5 +1,6 @@
+// EndpointPage.js
 import React from 'react';
-import { Row, Col, Card, Button } from 'antd'; // Affix eklenmiştir
+import { Row, Col, Card, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 const endpoints = [
@@ -19,7 +20,7 @@ const EndpointPage = () => {
     margin: '16px',
     textAlign: 'center',
     color: 'white',
-    backgroundColor: '#164e63', // Set the background color here
+    backgroundColor: '#164e63',
   };
 
   return (
@@ -36,12 +37,11 @@ const EndpointPage = () => {
         ))}
       </Row>
 
-        <Link to="/complated-projects">
-          <Button type='primary'>
-            Projeyi Bitir
-          </Button>
-        </Link>
-    
+      <Link to="/complated-projects">
+        <Button type='primary'>
+          Projeyi Bitir
+        </Button>
+      </Link>
     </div>
   );
 };
