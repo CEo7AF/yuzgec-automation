@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Button } from 'antd'; // Affix eklenmiştir
 import { Link } from 'react-router-dom';
 
 const endpoints = [
@@ -35,6 +35,13 @@ const EndpointPage = () => {
           </Col>
         ))}
       </Row>
+
+        <Link to="/complated-projects">
+          <Button type='primary'>
+            Projeyi Bitir
+          </Button>
+        </Link>
+    
     </div>
   );
 };
