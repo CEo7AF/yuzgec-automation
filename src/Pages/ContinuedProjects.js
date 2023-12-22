@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, Input, Form, Card, Row, Col } from "antd";
 
 const ContinuedProjects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projectData, setProjectData] = useState(null);
-  const [projects, setProjects] = useState([]); // Yeni bir state ekledik
+  const [projects, setProjects] = useState([]);
 
   const [form] = Form.useForm();
 
@@ -20,7 +20,12 @@ const ContinuedProjects = () => {
 
   const handleOk = () => {
     const newProject = form.getFieldsValue();
-    setProjects([...projects, newProject]); // Yeni projeyi ekleyerek projeleri güncelle
+    const updatedProjects = [...projects, newProject];
+    setProjects(updatedProjects);
+
+    // Local storage'a verileri kaydet
+    localStorage.setItem("projects", JSON.stringify(updatedProjects));
+
     form.resetFields();
     setIsModalOpen(false);
   };
@@ -28,6 +33,13 @@ const ContinuedProjects = () => {
   const handleCancel = () => {
     form.resetFields();
     setIsModalOpen(false);
+  };
+
+  const handleDelete = (index) => {
+    const updatedProjects = [...projects];
+    updatedProjects.splice(index, 1);
+    setProjects(updatedProjects);
+    localStorage.setItem("projects", JSON.stringify(updatedProjects));
   };
 
   return (
@@ -57,14 +69,14 @@ const ContinuedProjects = () => {
       </Modal>
       <Row gutter={16}>
         {projects.map((project, index) => (
-          <Col key={index} xs={24} sm={12} md={8} lg={6}>
+          <Col key={index} span={5}>
             <Card
               title={project.projeIsmi}
               style={{ 
                 marginTop: 16, 
                 backgroundColor: '#164e63', 
                 color: 'white',
-                width: '100%',
+                width: 300,
                 height: 300,
                 display: 'flex',
                 flexDirection: 'column',
@@ -74,6 +86,9 @@ const ContinuedProjects = () => {
             >
               <p>Personel Sayısı: {project.personelSayisi}</p>
               <p>Makine Sayısı: {project.makineSayisi}</p>
+              <Button type="primary" danger onClick={() => handleDelete(index)}>
+                Sil
+              </Button>
             </Card>
           </Col>
         ))}
