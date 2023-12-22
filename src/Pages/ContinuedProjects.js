@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Input, Form, Card, Row, Col } from "antd";
+import { Link } from 'react-router-dom';
 
 const ContinuedProjects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -112,9 +113,11 @@ const ContinuedProjects = () => {
               <Button type="primary" onClick={() => handleUpdate(project)}>
                 Güncelle
               </Button>
+              <Link to="/endpoint" style={{ color: 'white', textDecoration: 'none' }}>
               <Button type="primary" onClick={() => handleView(project)}>
                 Projeye git
               </Button>
+              </Link>
             </Card>
           </Col>
         ))}
