@@ -4,6 +4,7 @@ import { Button, Modal, Input, Form, Card, Row, Col } from "antd";
 const ContinuedProjects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const [form] = Form.useForm();
 
@@ -18,27 +19,47 @@ const ContinuedProjects = () => {
   };
 
   const handleOk = () => {
-    const newProject = form.getFieldsValue();
-    const updatedProjects = [...projects, newProject];
-    setProjects(updatedProjects);
-
-    // Local storage'a verileri kaydet
-    localStorage.setItem("projects", JSON.stringify(updatedProjects));
+    if (selectedProject) {
+      // Güncelleme işlemi
+      const updatedProjects = projects.map((project) =>
+        project === selectedProject ? form.getFieldsValue() : project
+      );
+      setProjects(updatedProjects);
+      localStorage.setItem("projects", JSON.stringify(updatedProjects));
+    } else {
+      // Yeni proje ekleme işlemi
+      const newProject = form.getFieldsValue();
+      const updatedProjects = [...projects, newProject];
+      setProjects(updatedProjects);
+      localStorage.setItem("projects", JSON.stringify(updatedProjects));
+    }
 
     form.resetFields();
     setIsModalOpen(false);
+    setSelectedProject(null);
   };
 
   const handleCancel = () => {
     form.resetFields();
     setIsModalOpen(false);
+    setSelectedProject(null);
   };
 
   const handleDelete = (index) => {
-    const updatedProjects = [...projects];
-    updatedProjects.splice(index, 1);
+    const updatedProjects = projects.filter((_, i) => i !== index);
     setProjects(updatedProjects);
     localStorage.setItem("projects", JSON.stringify(updatedProjects));
+  };
+
+  const handleUpdate = (project) => {
+    setSelectedProject(project);
+    form.setFieldsValue(project);
+    showModal();
+  };
+
+  const handleView = (project) => {
+    // Görüntüleme işlemi
+    // Buraya proje görüntülemeyle ilgili kodları ekleyebilirsiniz
   };
 
   return (
@@ -47,7 +68,7 @@ const ContinuedProjects = () => {
         Yeni Proje Ekle
       </Button>
       <Modal
-        title="Yeni Proje Ekle"
+        title={selectedProject ? "Proje Güncelle" : "Yeni Proje Ekle"}
         visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -71,22 +92,28 @@ const ContinuedProjects = () => {
           <Col key={index} span={5}>
             <Card
               title={project.projeIsmi}
-              style={{ 
-                marginTop: 16, 
-                backgroundColor: '#164e63', 
-                color: 'white',
+              style={{
+                marginTop: 16,
+                backgroundColor: "#164e63",
+                color: "white",
                 width: 300,
                 height: 300,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <p>Personel Sayısı: {project.personelSayisi}</p>
               <p>Makine Sayısı: {project.makineSayisi}</p>
               <Button type="primary" danger onClick={() => handleDelete(index)}>
                 Sil
+              </Button>
+              <Button type="primary" onClick={() => handleUpdate(project)}>
+                Güncelle
+              </Button>
+              <Button type="primary" onClick={() => handleView(project)}>
+                Projeye git
               </Button>
             </Card>
           </Col>
