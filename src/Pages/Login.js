@@ -22,7 +22,7 @@ const Login = ({ onLogin }) => {
       onLogin(); // Ana uygulamada giriş durumunu güncelle
       setLoggedIn(true); // Giriş durumunu lokal olarak güncelle
     } else {
-      alert('Mail veya şifre.');
+      alert('Mail veya şifre hatalı');
     }
   };
 
