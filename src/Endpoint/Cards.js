@@ -1,6 +1,6 @@
 // EndpointPage.js
 import React from 'react';
-import { Row, Col, Card, Button } from 'antd';
+import { Row, Col, Card, Button,Space } from 'antd';
 import { Link } from 'react-router-dom';
 
 const endpoints = [
@@ -37,11 +37,14 @@ const EndpointPage = () => {
         ))}
       </Row>
 
-      <Link to="/complated-projects">
-        <Button type='primary'>
-          Projeyi Bitir
-        </Button>
-      </Link>
+      <Space direction="vertical" style={{ marginTop: '290px'}}>
+  <Link to="/completed-projects">
+    <Button type="primary" block>
+      Projeyi Bitir
+    </Button>
+  </Link>
+</Space>
+      
     </div>
   );
 };
